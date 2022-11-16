@@ -1,5 +1,12 @@
 module Funcionario where
 import Mensagens
+import System.IO
+import Data.List
+import Distribution.Simple (UserHooks(preConf))
+import qualified Data.Text as T
+import Text.Printf
+import Language.Haskell.TH (arithSeqE)
+import Utils
 
 menuFuncionario:: (IO()) -> IO()
 menuFuncionario menuPrincipal = do
@@ -13,12 +20,13 @@ menuFuncionario menuPrincipal = do
     putStr("Opção: ")
     op <- readLn:: IO Int
     chamadaFuncionario op menuPrincipal
+    
 
 chamadaFuncionario:: Int -> (IO()) -> IO ()
 chamadaFuncionario op menuPrincipal
-    | op == 1 = putStr ""
+    | op == 1 = veiculosDisponiveis
     | op == 2 = putStr ""
-    | op == 3 = putStr ""
+    | op == 3 = clientesCadastrados
     | op == 4 = putStr ""
     | op == 5 = putStr ""
     | op == 6 = menuPrincipal
@@ -26,6 +34,19 @@ chamadaFuncionario op menuPrincipal
         putStr("Opção inválida, digite novamente\n")
         menuFuncionario menuPrincipal
 
+veiculosDisponiveis:: IO()
+veiculosDisponiveis = do
+    putStr "Veículos disponíveis:\n"
 
+    arq <- readFile "arquivos/carros.txt"
+    let linhas = lines arq
+    Utils.escreveCarros linhas
 
+clientesCadastrados:: IO()
+clientesCadastrados = do
+    putStr "Clientes cadastrados:\n"
+    
+    arq <- readFile "arquivos/clientes.txt"
+    let linhas = lines arq
+    Utils.escreveClientes linhas
 

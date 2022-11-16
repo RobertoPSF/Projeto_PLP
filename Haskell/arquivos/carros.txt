@@ -1,0 +1,1 @@
+id/nome/ano/cor/precoFixo/tarifaDiaria/tarifaMensal/disponivel

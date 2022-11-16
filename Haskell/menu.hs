@@ -2,7 +2,6 @@ import Cliente
 import Dono
 import Funcionario
 import Mensagens
-import qualified Mensagens
 
 
 main:: IO()
