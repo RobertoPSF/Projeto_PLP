@@ -1,4 +1,5 @@
-module MenuDono where
+module Dono where
+import Funcionario (menuFuncionario)
 
 
 menuDono:: (IO()) -> IO()
@@ -15,11 +16,11 @@ menuDono menuPrincipal = do
 
 chamadaDono:: Int -> (IO()) -> IO()
 chamadaDono op menuPrincipal
-    | op == 1 =
-    | op == 2 =
-    | op == 3 =
-    | op == 4 =
+    | op == 1 = putStr ""
+    | op == 2 = putStr ""
+    | op == 3 = putStr ""
+    | op == 4 = putStr ""
     | op == 5 = menuPrincipal
     | otherwise = do
         putStr("Opção inválida, digite novamente\n")
-        menuDono
+        menuDono menuPrincipal

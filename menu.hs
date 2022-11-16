@@ -18,10 +18,10 @@ main = do
     chamadaPrincipal op main
 
 chamadaPrincipal:: Int -> (IO()) -> IO()
-chamadaPrincipal op 
-        | op == 1 = Cliente.cliente main
-        | op == 2 = MenuDono.menuDono
-        | op == 3 = MenuFuncionario.menuFuncionario
+chamadaPrincipal op main
+        | op == 1 = Cliente.menuCliente main
+        | op == 2 = Dono.menuDono main
+        | op == 3 = Funcionario.menuFuncionario main
         | op == 4 = putStr("Até a próxima!\n")
         | otherwise = do
             putStr("Opção inválida, digite novamente\n")
