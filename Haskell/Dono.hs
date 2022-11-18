@@ -1,11 +1,11 @@
 module Dono where
-import Funcionario (menuFuncionario)
 
 
 menuDono:: IO()
 menuDono  = do
     putStr("\n----------Menu do Dono----------\n")
     putStr("1 - Cadastrar funcionário\n")
+    putStr("2 - Cadastrar carro\n")
     putStr("2 - Excluir funcionário\n")
     putStr("3 - Gerência de finanças\n")
     putStr("4 - Visualizar funcionários ativos\n")
@@ -28,7 +28,10 @@ chamadaDono op
     | op == 4 = do 
         putStr ""
         menuDono
-    | op == 5 = putStr ""
+    | op == 5 = do
+        putStr ""
+        menuDono
+    |op == 6 = putStr ""
     | otherwise = do
         putStr("Opção inválida, digite novamente\n")
         menuDono 

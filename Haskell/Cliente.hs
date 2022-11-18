@@ -1,5 +1,6 @@
 module Cliente where
 import Mensagens
+import Utils
 
 menuCliente:: IO()
 menuCliente  = do
@@ -17,7 +18,7 @@ menuCliente  = do
 chamadaCliente:: Int -> IO()
 chamadaCliente op 
     | op == 1 = do 
-        putStr ""
+        veiculosDisponiveis
         menuCliente
     | op == 2 = do 
         putStr ""
@@ -30,3 +31,10 @@ chamadaCliente op
         putStr("Opção inválida, digite novamente\n")
         menuCliente 
 
+veiculosDisponiveis:: IO()
+veiculosDisponiveis = do
+    putStr "Veículos disponíveis:\n"
+
+    arq <- readFile "arquivos/carros.txt"
+    let linhas = lines arq
+    Utils.escreveCarrosDisponiveis linhas
