@@ -14,13 +14,19 @@ main = do
     putStr("4 - Sair\n")
     putStr("Opção: ")
     op <- readLn:: IO Int
-    chamadaPrincipal op main
+    chamadaPrincipal op
 
-chamadaPrincipal:: Int -> (IO()) -> IO()
-chamadaPrincipal op main
-        | op == 1 = Cliente.menuCliente main
-        | op == 2 = Dono.menuDono main
-        | op == 3 = Funcionario.menuFuncionario main
+chamadaPrincipal:: Int -> IO()
+chamadaPrincipal op
+        | op == 1 = do
+            Cliente.menuCliente
+            main
+        | op == 2 = do
+            Dono.menuDono
+            main
+        | op == 3 = do
+            Funcionario.menuFuncionario
+            main
         | op == 4 = putStr("Até a próxima!\n")
         | otherwise = do
             putStr("Opção inválida, digite novamente\n")

@@ -1,4 +1,7 @@
 module Mensagens where
 
-clienteNaoEncontrado:: IO()
-clienteNaoEncontrado = putStr("Cliente não existe")
+clienteNaoEncontrado:: String
+clienteNaoEncontrado = "Cliente não existe\n"
+
+carroNaoEncontrado:: String
+carroNaoEncontrado = "Carro não encontrado\n"

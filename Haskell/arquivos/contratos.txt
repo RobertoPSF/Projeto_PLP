@@ -1,1 +1,2 @@
 idCliente/idCarro/tipoContrato/total
+1/1/diario/220.0
