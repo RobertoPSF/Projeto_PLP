@@ -1,8 +1,8 @@
 module Cliente where
 import Mensagens
 
-menuCliente:: (IO()) -> IO()
-menuCliente menuPrincipal = do
+menuCliente:: IO()
+menuCliente  = do
     putStr("\n----------Menu do Cliente----------\n")
     putStr("1 - Listar veículos disponíves\n")
     putStr("2 - Escolher veículo\n")
@@ -10,16 +10,23 @@ menuCliente menuPrincipal = do
     putStr("4 - Voltar para o menu principal\n")
     putStr("Opção: ")
     op <- readLn:: IO Int
-    chamadaCliente op menuPrincipal
+    chamadaCliente op
 
 
-chamadaCliente:: Int -> (IO()) -> IO()
-chamadaCliente op menuPrincipal
-    | op == 1 = putStr ""
-    | op == 2 = putStr ""
-    | op == 3 = putStr ""
-    | op == 4 = menuPrincipal
+
+chamadaCliente:: Int -> IO()
+chamadaCliente op 
+    | op == 1 = do 
+        putStr ""
+        menuCliente
+    | op == 2 = do 
+        putStr ""
+        menuCliente
+    | op == 3 = do 
+        putStr ""
+        menuCliente
+    | op == 4 = putStr ""
     | otherwise = do
         putStr("Opção inválida, digite novamente\n")
-        menuCliente menuPrincipal
+        menuCliente 
 

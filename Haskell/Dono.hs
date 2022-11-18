@@ -2,8 +2,8 @@ module Dono where
 import Funcionario (menuFuncionario)
 
 
-menuDono:: (IO()) -> IO()
-menuDono menuPrincipal = do
+menuDono:: IO()
+menuDono  = do
     putStr("\n----------Menu do Dono----------\n")
     putStr("1 - Cadastrar funcionário\n")
     putStr("2 - Excluir funcionário\n")
@@ -12,15 +12,23 @@ menuDono menuPrincipal = do
     putStr("5 - Voltar para o menu principal\n")
     putStr("Opção: ")
     op <- readLn:: IO Int
-    chamadaDono op menuPrincipal
+    chamadaDono op
 
-chamadaDono:: Int -> (IO()) -> IO()
-chamadaDono op menuPrincipal
-    | op == 1 = putStr ""
-    | op == 2 = putStr ""
-    | op == 3 = putStr ""
-    | op == 4 = putStr ""
-    | op == 5 = menuPrincipal
+chamadaDono:: Int -> IO()
+chamadaDono op 
+    | op == 1 = do 
+        putStr ""
+        menuDono
+    | op == 2 = do 
+        putStr ""
+        menuDono
+    | op == 3 = do 
+        putStr ""
+        menuDono
+    | op == 4 = do 
+        putStr ""
+        menuDono
+    | op == 5 = putStr ""
     | otherwise = do
         putStr("Opção inválida, digite novamente\n")
-        menuDono menuPrincipal
+        menuDono 

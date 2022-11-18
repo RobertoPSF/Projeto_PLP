@@ -1,1 +1,2 @@
 id/nome/ano/cor/precoFixo/tarifaDiaria/tarifaMensal/disponivel
+1/celta/2021/preto/200/5/1/nao
