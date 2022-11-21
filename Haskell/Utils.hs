@@ -35,13 +35,13 @@ escreveCarrosDisponiveis [] = putStrLn ""
 escreveCarrosDisponiveis (h:t) = do
     let carro = split '/' h ""
     if carro!!7 == "sim" then do 
-    printf "\nCódigo: %s\n" (carro!!0)
-    printf "Nome: %s\n" (carro!!1)
-    printf "Ano: %s\n" (carro!!2)
-    printf "Cor: %s\n" (carro!!3)
-    printf "Preço fixo: R$ %.2f\n" (read (carro!!4):: Double)
-    printf "Tarifa diária: %s%%\n" (carro!!5)
-    printf "Tarifa mensal: %s%%\n" (carro!!6)
+        printf "\nCódigo: %s\n" (carro!!0)
+        printf "Nome: %s\n" (carro!!1)
+        printf "Ano: %s\n" (carro!!2)
+        printf "Cor: %s\n" (carro!!3)
+        printf "Preço fixo: R$ %.2f\n" (read (carro!!4):: Double)
+        printf "Tarifa diária: %s%%\n" (carro!!5)
+        printf "Tarifa mensal: %s%%\n" (carro!!6)
     else escreveCarros t
 
 
