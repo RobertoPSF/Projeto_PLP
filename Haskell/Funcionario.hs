@@ -86,7 +86,7 @@ excluirCliente = do
     let linhas = lines contents
     if linhas == linhas then do
         hClose arq
-        
+
         Utils.procuraClienteIndice linhas linhas id 0
     else putStr ""
 
@@ -117,7 +117,9 @@ escolherVeiculo = do
         contents2 <- hGetContents arqCarros
         let carros = lines contents2
 
-        if carros == carros then 
+        if carros == carros then do
+            hClose arqCarros
+
             Utils.escolherCarroCliente clientes idCliente carros idCarro contrato tempo
         else putStr ""
         
