@@ -126,6 +126,7 @@ atualizaCarroDisposicao (h:t) carros carro indice idCarro = do
 
 escolherCarroCliente:: [String] -> Int -> [String] -> Int -> String -> Int -> IO()
 escolherCarroCliente clientes idCliente carros idCarro contrato tempo = do
+
     let cliente = escreveClienteCarro (procuraCliente clientes idCliente) idCarro
     atualizaClienteCarro clientes clientes cliente 0 idCliente
 

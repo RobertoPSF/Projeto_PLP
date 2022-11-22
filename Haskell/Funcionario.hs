@@ -81,10 +81,14 @@ excluirCliente = do
     putStr "Informe o código do cliente: "
     id <- readLn:: IO Int
 
-    arq <- readFile "arquivos/clientes.txt"
-    
-    let linhas = lines arq
-    Utils.procuraClienteIndice linhas linhas id 0
+    arq <- openFile "arquivos/clientes.txt" ReadMode
+    contents <- hGetContents  arq
+    let linhas = lines contents
+    if linhas == linhas then do
+        hClose arq
+        
+        Utils.procuraClienteIndice linhas linhas id 0
+    else putStr ""
 
 escolherVeiculo:: IO()
 escolherVeiculo = do
