@@ -100,6 +100,7 @@ atualizaClienteCarro (h:t) clientes cliente indice idCliente = do
         let clienteS = cliente!!0 ++ "/" ++ cliente!!1 ++ "/" ++ cliente!!2 ++ "/" ++ cliente!!3 ++ "/" ++ cliente!!4
         let lista = take indice clientes ++ [clienteS] ++ drop (1 + indice) clientes
         let linhas = unlines lista
+
         arq <- openFile "arquivos/clientes.txt" WriteMode
         hPutStr arq linhas
         hFlush arq
@@ -114,8 +115,9 @@ atualizaCarroDisposicao (h:t) carros carro indice idCarro = do
     let linha = split '/' h ""
     if (read (linha!!0):: Int) == idCarro then do
         let carroS = carro!!0 ++ "/" ++ carro!!1 ++ "/" ++ carro!!2 ++ "/" ++ carro!!3 ++ "/" ++ carro!!4 ++ "/" ++ carro!!5 ++ "/" ++ carro!!6 ++ "/" ++ carro!!7
-        let lista = take indice carro ++ [carroS] ++ drop (1 + indice) carros
+        let lista = take indice carros ++ [carroS] ++ drop (1 + indice) carros
         let linhas = unlines lista
+
         arq <- openFile "arquivos/carros.txt" WriteMode
         hPutStr arq linhas
         hFlush arq

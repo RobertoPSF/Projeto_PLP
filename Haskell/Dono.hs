@@ -28,10 +28,7 @@ chamadaDono op
     | op == 4 = do 
         putStr ""
         menuDono
-    | op == 5 = do
-        putStr ""
-        menuDono
-    |op == 6 = putStr ""
+    | op == 5 = putStr ""
     | otherwise = do
         putStr("Opção inválida, digite novamente\n")
         menuDono 
