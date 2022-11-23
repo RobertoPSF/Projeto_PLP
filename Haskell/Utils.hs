@@ -135,12 +135,12 @@ escolherCarroCliente clientes idCliente carros idCarro contrato tempo = do
 
     if contrato == "diario" then do
         let total = contratoDiario carros idCarro tempo
-        let linha = show idCliente ++ "/" ++ show idCarro ++ "/" ++ contrato ++ "/" ++ show total
+        let linha = show idCliente ++ "/" ++ show idCarro ++ "/" ++ contrato ++ "/" ++ show total ++ "\n"
         appendFile "arquivos/contratos.txt" (linha)
         putStr "Carro alugado para cliente."
     else do
         let total = contratoMensal carros idCarro tempo
-        let linha = show idCliente ++ "/" ++ show idCarro ++ "/" ++ contrato ++ "/" ++ show total
+        let linha = show idCliente ++ "/" ++ show idCarro ++ "/" ++ contrato ++ "/" ++ show total ++ "\n"
         appendFile "arquivos/contratos.txt" (linha)
         putStr "Carro alugado para cliente."
 
