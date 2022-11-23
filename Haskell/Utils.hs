@@ -197,3 +197,15 @@ procuraCliente (h:t) id = do
     if (read (cliente!!0):: Int) == id then
         cliente
     else procuraCliente t id
+
+
+mudarDisponibilidadeDoCarro::[String] -> Int -> String -> IO()
+mudarDisponibilidadeDoCarro carros idCarro disp = do
+    if disp == "i" then do
+        let carro = escreveIndisponivel (procuraCarro carros idCarro)
+        atualizaCarroDisposicao carros carros carro 0 idCarro
+        putStr "O carro agora está indisponível\n"
+    else do
+        let carro = escreveDisponivel (procuraCarro carros idCarro)
+        atualizaCarroDisposicao carros carros carro 0 idCarro
+        putStr "O carro agora está indisponível\n"

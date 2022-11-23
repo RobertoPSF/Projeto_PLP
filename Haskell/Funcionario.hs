@@ -13,10 +13,11 @@ menuFuncionario = do
     putStr("\n---------Menu do Funcionário----------\n")
     putStr("1 - Veículos disponíveis\n")
     putStr("2 - Escolher veículo para um cliente\n")
-    putStr("3 - Exibir clientes cadastrados\n")
-    putStr("4 - Excluir clientes do sistema\n")
-    putStr("5 - Calcular valor do veículo\n")
-    putStr("6 - Voltar para o menu principal\n")
+    putStr("3 - Mudar disponibilidade de um carro\n")
+    putStr("4 - Exibir clientes cadastrados\n")
+    putStr("5 - Excluir clientes do sistema\n")
+    putStr("6 - Calcular valor do veículo\n")
+    putStr("7 - Voltar para o menu principal\n")
     putStr("Opção: ")
     op <- readLn:: IO Int
     chamadaFuncionario op
@@ -32,15 +33,18 @@ chamadaFuncionario op
         escolherVeiculo
         menuFuncionario 
     | op == 3 = do
+        mudarDisponibilidadeCarro
+        menuFuncionario
+    | op == 4 = do
         clientesCadastrados
         menuFuncionario 
-    | op == 4 = do
+    | op == 5 = do
         excluirCliente
         menuFuncionario 
-    | op == 5 = do
+    | op == 6 = do
         valorVeiculo
         menuFuncionario 
-    | op == 6 = putStr ""
+    | op == 7 = putStr ""
     | otherwise = do
         putStr("Opção inválida, digite novamente\n")
         menuFuncionario
@@ -133,3 +137,22 @@ escolherVeiculo = do
                 else putStr ""
         
         else putStr ""
+
+
+mudarDisponibilidadeCarro:: IO()
+mudarDisponibilidadeCarro = do
+    putStr "Informe o código do carro: "
+    idCarro <- readLn:: IO Int
+
+    putStr "O carro esta disponível ou indisponível (d/i): "
+    disp <- getLine
+
+    arqCarros <- openFile "arquivos/carros.txt" ReadMode
+    contents2 <- hGetContents arqCarros
+    let carros = lines contents2
+
+    if carros == carros then do
+        hClose arqCarros
+
+        Utils.mudarDisponibilidadeDoCarro carros idCarro disp
+    else putStr ""
