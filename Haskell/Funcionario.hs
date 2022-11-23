@@ -101,7 +101,7 @@ escolherVeiculo = do
     putStr "Informe o código do carro:"
     idCarro <- readLn:: IO Int
 
-    putStr "Tipo de contrato: "
+    putStr "Tipo de contrato (diario/mensal): "
     contrato <- getLine
 
     putStr "Quantidade de dias/meses: "
