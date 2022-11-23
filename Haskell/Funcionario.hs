@@ -98,7 +98,7 @@ escolherVeiculo = do
     putStr "Informe o código do cliente: "
     idCliente <- readLn:: IO Int
 
-    putStr "Informe o código do carro:"
+    putStr "Informe o código do carro: "
     idCarro <- readLn:: IO Int
 
     putStr "Tipo de contrato (diario/mensal): "
@@ -110,17 +110,26 @@ escolherVeiculo = do
     arqClientes <- openFile "arquivos/clientes.txt" ReadMode
     contents <- hGetContents arqClientes
     let clientes = lines contents
-    if clientes == clientes then do
+
+    if Utils.procuraCliente clientes idCliente == [] then do 
+        putStr Mensagens.clienteNaoEncontrado
         hClose arqClientes
+    else do
+        if clientes == clientes then do
+            hClose arqClientes
 
-        arqCarros <- openFile "arquivos/carros.txt" ReadMode
-        contents2 <- hGetContents arqCarros
-        let carros = lines contents2
+            arqCarros <- openFile "arquivos/carros.txt" ReadMode
+            contents2 <- hGetContents arqCarros
+            let carros = lines contents2
 
-        if carros == carros then do
-            hClose arqCarros
+            if Utils.procuraCarro carros idCarro == [] then do
+                putStr Mensagens.carroNaoEncontrado
+                hClose arqCarros
+            else do
+                if carros == carros then do
+                    hClose arqCarros
 
-            Utils.escolherCarroCliente clientes idCliente carros idCarro contrato tempo
-        else putStr ""
+                    Utils.escolherCarroCliente clientes idCliente carros idCarro contrato tempo
+                else putStr ""
         
-    else putStr ""
+        else putStr ""

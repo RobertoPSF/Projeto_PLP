@@ -42,7 +42,8 @@ escreveCarrosDisponiveis (h:t) = do
         printf "Preço fixo: R$ %.2f\n" (read (carro!!4):: Double)
         printf "Tarifa diária: %s%%\n" (carro!!5)
         printf "Tarifa mensal: %s%%\n" (carro!!6)
-    else escreveCarros t
+        escreveCarrosDisponiveis t
+    else escreveCarrosDisponiveis t
 
 
 escreveClientes:: [String] -> IO()
