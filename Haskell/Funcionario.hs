@@ -69,9 +69,9 @@ valorVeiculo:: IO()
 valorVeiculo = do
     veiculosDisponiveis
 
-    putStr "Informe o código do carro:"
+    putStr "Informe o código do carro: "
     id <- readLn:: IO Int
-    putStr "Informe a quantidade de dias/meses:"
+    putStr "Informe a quantidade de dias/meses: "
     tempo <- readLn:: IO Int
 
     arq <- readFile "arquivos/carros.txt"
@@ -151,8 +151,12 @@ mudarDisponibilidadeCarro = do
     contents2 <- hGetContents arqCarros
     let carros = lines contents2
 
-    if carros == carros then do
+    if Utils.procuraCarro carros idCarro == [] then do
+        putStr Mensagens.carroNaoEncontrado
         hClose arqCarros
+    else do
+        if carros == carros then do
+            hClose arqCarros
 
-        Utils.mudarDisponibilidadeDoCarro carros idCarro disp
-    else putStr ""
+            Utils.mudarDisponibilidadeDoCarro carros idCarro disp
+        else putStr ""

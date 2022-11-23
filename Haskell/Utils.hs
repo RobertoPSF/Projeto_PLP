@@ -208,4 +208,4 @@ mudarDisponibilidadeDoCarro carros idCarro disp = do
     else do
         let carro = escreveDisponivel (procuraCarro carros idCarro)
         atualizaCarroDisposicao carros carros carro 0 idCarro
-        putStr "O carro agora está indisponível\n"
+        putStr "O carro agora está disponível\n"
