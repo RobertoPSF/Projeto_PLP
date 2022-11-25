@@ -140,12 +140,12 @@ escolherCarroCliente clientes idCliente carros idCarro contrato tempo = do
         let total = contratoDiario carros idCarro tempo
         let linha = show idCliente ++ "/" ++ show idCarro ++ "/" ++ contrato ++ "/" ++ show total ++ "\n"
         appendFile "arquivos/contratos.txt" (linha)
-        putStr "Carro alugado para cliente."
+        putStr "Carro alugado para cliente.\n"
     else do
         let total = contratoMensal carros idCarro tempo
         let linha = show idCliente ++ "/" ++ show idCarro ++ "/" ++ contrato ++ "/" ++ show total ++ "\n"
         appendFile "arquivos/contratos.txt" (linha)
-        putStr "Carro alugado para cliente."
+        putStr "Carro alugado para cliente.\n"
 
 
 escreveIndisponivel:: [String] -> [String]
@@ -208,4 +208,36 @@ mudarDisponibilidadeDoCarro carros idCarro disp = do
     else do
         let carro = escreveDisponivel (procuraCarro carros idCarro)
         atualizaCarroDisposicao carros carros carro 0 idCarro
-        putStr "O carro agora está disponível\n"
+        putStr "O carro agora está indisponível\n"
+
+salvaFuncionario:: Int -> String -> Double -> IO()
+salvaFuncionario id nome salario = do
+    let funcionario = show id ++ "/" ++ nome ++ "/" ++ show salario ++ "\n"
+    appendFile "arquivos/funcionarios.txt" (funcionario)
+    putStr "Funcionario cadastrado com sucesso.\n"
+
+salvaCarro:: Int -> String -> String -> String -> Double -> Double -> Double -> String -> IO()
+salvaCarro id nome ano cor fixo diario mensal disp = do
+    let carro = show id ++ "/" ++ nome ++ "/" ++ ano ++ "/" ++ cor  ++ "/" ++ show fixo ++ "/" ++ show diario ++ "/" ++ show mensal ++ "/" ++ disp ++ "\n"
+    appendFile "arquivos/carros.txt" (carro)
+    putStr "Carro cadastrado com sucesso.\n"
+
+
+procuraFuncionarioIndice:: [String] -> [String] -> Int -> Int -> IO()
+procuraFuncionarioIndice _ [] _ _ = putStr Mensagens.funcionarioNaoEncontrado
+procuraFuncionarioIndice lista (h:t) id cont = do
+    let funcionario = split '/' h ""
+    if (read (funcionario!!0):: Int) == id then removeFuncionario lista cont
+    else procuraFuncionarioIndice lista t id (cont + 1)
+
+
+removeFuncionario:: [String] -> Int -> IO()
+removeFuncionario funcionarios indice = do
+    let lista = take indice funcionarios ++ drop (1 + indice) funcionarios
+    let linhas = unlines lista
+    arq <- openFile "arquivos/funcionarios.txt" WriteMode
+    hPutStr arq linhas
+    hFlush arq
+    hClose arq
+    putStr ""
+    putStrLn "Funcionário excluído com sucesso."
