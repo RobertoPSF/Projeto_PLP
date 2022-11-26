@@ -29,10 +29,10 @@ chamadaDono op
         excluirFuncionario
         menuDono
     | op == 4 = do 
-        putStr ""
+        menuFinancas
         menuDono
     | op == 5 = do
-        putStr ""
+        visualizarFuncionarios
         menuDono
     | op == 6 = do
         visualizarClientes
@@ -45,7 +45,7 @@ chamadaDono op
 
 cadastrarFuncionario:: IO()
 cadastrarFuncionario = do
-    putStr "Informe o código do funcionário: "
+    putStr "\nInforme o código do funcionário: "
     id <- readLn:: IO Int 
 
     putStr "Informe o nome: "
@@ -58,11 +58,11 @@ cadastrarFuncionario = do
 
 excluirFuncionario:: IO()
 excluirFuncionario = do
-    putStr "Informe o código do funcionário: "
+    putStr "\nInforme o código do funcionário: "
     id <- readLn:: IO Int
 
     arq <- openFile "arquivos/funcionarios.txt" ReadMode
-    contents <- hGetContents  arq
+    contents <- hGetContents arq
     let linhas = lines contents
     if linhas == linhas then do
         hClose arq
@@ -72,7 +72,7 @@ excluirFuncionario = do
 
 visualizarClientes:: IO()
 visualizarClientes = do 
-    putStr "Clientes ativos: "
+    putStrLn "\nClientes ativos: "
 
     arq <- readFile "arquivos/clientes.txt"
     let linhas = lines arq
@@ -80,7 +80,7 @@ visualizarClientes = do
 
 cadastrarCarro:: IO()
 cadastrarCarro = do
-    putStr "Informe o código do carro: "
+    putStr "\nInforme o código do carro: "
     id <- readLn:: IO Int
     putStr "Nome: "
     nome <- getLine
@@ -95,3 +95,63 @@ cadastrarCarro = do
     putStr "Tarifa mensal (porcentagem): "
     mensal <- readLn:: IO Double
     Utils.salvaCarro id nome ano cor fixo diaria mensal "sim"
+
+
+visualizarFuncionarios:: IO()
+visualizarFuncionarios = do
+    putStrLn "\nFuncionários ativos: "
+
+    arq <- readFile "arquivos/funcionarios.txt"
+    let linhas = lines arq
+    Utils.escreveFuncionarios linhas
+
+
+menuFinancas:: IO()
+menuFinancas = do
+    putStrLn "\n1 - Visualizar contratos ativos"
+    putStrLn "2 - Alterar preço de um carro"
+    putStrLn "3 - Voltar para o menu anterior"
+    putStr "Opção: "
+    op <- readLn:: IO Int
+    chamadaFinancas op
+
+
+chamadaFinancas:: Int -> IO()
+chamadaFinancas op
+    | op == 1 = do
+        visualizarContratos
+        menuFinancas
+    | op == 2 = do
+        alterarPrecoCarro
+        menuFinancas
+    | op == 3 = putStr ""
+    |otherwise = do
+        putStrLn "Opção inválida, digite novamente."
+        menuFinancas
+
+
+visualizarContratos:: IO()
+visualizarContratos = do
+    putStrLn "\nContratos ativos: "
+
+    arq <- readFile "arquivos/contratos.txt"
+    let linhas = lines arq
+    Utils.escreveContratos linhas
+
+
+alterarPrecoCarro:: IO()
+alterarPrecoCarro = do 
+    putStr "\nInforme o código do carro: "
+    id <- readLn:: IO Int
+
+    putStr "Informe o novo preço: R$"
+    preco <- readLn:: IO Double
+
+    arq <- openFile "arquivos/carros.txt" ReadMode
+    contents <- hGetContents arq
+    let linhas = lines contents
+    if linhas == linhas then do
+        hClose arq
+        
+        Utils.escreveNovoPreco linhas id preco
+    else putStr ""
