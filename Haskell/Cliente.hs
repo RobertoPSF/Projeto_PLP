@@ -80,6 +80,47 @@ escolherVeiculoCliente = do
         
         else putStr ""
 
+menuPesquisaVeiculos:: IO()
+menuPesquisaVeiculos = do
+    putStr "Tipo de pesquisa:\n"
+    putStr "1 - Modelo\n"
+    putStr "2 - Ano\n"
+    putStr "3 - Cor\n"
+    op <- readLn:: IO Int
+
+    opcaoPesquisa op
+
+opcaoPesquisa:: Int -> IO()
+opcaoPesquisa op = do
+    arqCarros <- openFile "arquivos/carros.txt" ReadMode
+    contents2 <- hGetContents arqCarros
+    let carros = lines contents2
+
+    if op > 3 || op < 1 then putStr "Opção inválida\n"
+    else do
+        if op == 1 then putStr "Modelo: "
+        else if op == 2 then putStr "Ano: "
+        else putStr "Cor: "
+        element <- getLine
+        escreveCarroElem carros element op
+        hClose arqCarros
+
+escreveCarroElem:: [String] -> String -> Int -> IO()
+escreveCarroElem [] _ _ = putStrLn ""
+escreveCarroElem (h:t) element index = do
+    let carro = split '/' h ""
+    if (carro!!index == element) then do 
+        printf "\nCódigo: %s\n" (carro!!0)
+        printf "Nome: %s\n" (carro!!1)
+        printf "Ano: %s\n" (carro!!2)
+        printf "Cor: %s\n" (carro!!3)
+        printf "Preço fixo: R$ %.2f\n" (read (carro!!4):: Double)
+        printf "Tarifa diária: %s%%\n" (carro!!5)
+        printf "Tarifa mensal: %s%%\n" (carro!!6)
+        printf "Disponível: %s\n" (carro!!7)
+        escreveCarroElem t element index
+    else escreveCarroElem t element index
+
 clientesCadastrados:: IO()
 clientesCadastrados = do
     putStrLn "\nClientes cadastrados:"
