@@ -51,7 +51,7 @@ chamadaFuncionario op
 
 veiculosDisponiveis:: IO()
 veiculosDisponiveis = do
-    putStr "Veículos disponíveis:\n"
+    putStr "\nVeículos disponíveis:\n"
 
     arq <- readFile "arquivos/carros.txt"
     let linhas = lines arq
@@ -59,7 +59,7 @@ veiculosDisponiveis = do
 
 clientesCadastrados:: IO()
 clientesCadastrados = do
-    putStr "Clientes cadastrados:\n"
+    putStr "\nClientes cadastrados:\n"
     
     arq <- readFile "arquivos/clientes.txt"
     let linhas = lines arq
@@ -69,7 +69,7 @@ valorVeiculo:: IO()
 valorVeiculo = do
     veiculosDisponiveis
 
-    putStr "Informe o código do carro:"
+    putStr "\nInforme o código do carro:"
     id <- readLn:: IO Int
     putStr "Informe a quantidade de dias/meses:"
     tempo <- readLn:: IO Int
@@ -82,7 +82,7 @@ excluirCliente:: IO()
 excluirCliente = do
     clientesCadastrados
 
-    putStr "Informe o código do cliente: "
+    putStr "\nInforme o código do cliente: "
     id <- readLn:: IO Int
 
     arq <- openFile "arquivos/clientes.txt" ReadMode
@@ -99,7 +99,7 @@ escolherVeiculo = do
     veiculosDisponiveis
     clientesCadastrados
 
-    putStr "Informe o código do cliente: "
+    putStr "\nInforme o código do cliente: "
     idCliente <- readLn:: IO Int
 
     putStr "Informe o código do carro: "
@@ -141,7 +141,7 @@ escolherVeiculo = do
 
 mudarDisponibilidadeCarro:: IO()
 mudarDisponibilidadeCarro = do
-    putStr "Informe o código do carro: "
+    putStr "\nInforme o código do carro: "
     idCarro <- readLn:: IO Int
 
     putStr "O carro esta disponível ou indisponível (d/i): "

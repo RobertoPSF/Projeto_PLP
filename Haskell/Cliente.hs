@@ -39,7 +39,7 @@ escolherVeiculoCliente = do
     veiculosDisponiveis
     clientesCadastrados
 
-    putStr "Informe o código do cliente: "
+    putStr "\nInforme o código do cliente: "
     idCliente <- readLn:: IO Int
 
     putStr "Informe o código do carro: "
@@ -82,7 +82,7 @@ escolherVeiculoCliente = do
 
 clientesCadastrados:: IO()
 clientesCadastrados = do
-    putStr "Clientes cadastrados:\n"
+    putStrLn "\nClientes cadastrados:"
     
     arq <- readFile "arquivos/clientes.txt"
     let linhas = lines arq
@@ -90,7 +90,7 @@ clientesCadastrados = do
 
 veiculosDisponiveis:: IO()
 veiculosDisponiveis = do
-    putStr "Veículos disponíveis:\n"
+    putStrLn "\nVeículos disponíveis:"
 
     arq <- readFile "arquivos/carros.txt"
     let linhas = lines arq
