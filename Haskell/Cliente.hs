@@ -16,18 +16,16 @@ menuCliente  = do
     chamadaCliente op
 
 
-
 chamadaCliente:: Int -> IO()
 chamadaCliente op 
     | op == 1 = do 
         veiculosDisponiveis
         menuCliente
     | op == 2 = do 
-        putStr ""
         escolherVeiculoCliente
         menuCliente
     | op == 3 = do 
-        putStr ""
+        menuPesquisaVeiculos
         menuCliente
     | op == 4 = putStr ""
     | otherwise = do
@@ -102,24 +100,8 @@ opcaoPesquisa op = do
         else if op == 2 then putStr "Ano: "
         else putStr "Cor: "
         element <- getLine
-        escreveCarroElem carros element op
+        Utils.escreveCarrosElem carros element op
         hClose arqCarros
-
-escreveCarroElem:: [String] -> String -> Int -> IO()
-escreveCarroElem [] _ _ = putStrLn ""
-escreveCarroElem (h:t) element index = do
-    let carro = split '/' h ""
-    if (carro!!index == element) then do 
-        printf "\nCódigo: %s\n" (carro!!0)
-        printf "Nome: %s\n" (carro!!1)
-        printf "Ano: %s\n" (carro!!2)
-        printf "Cor: %s\n" (carro!!3)
-        printf "Preço fixo: R$ %.2f\n" (read (carro!!4):: Double)
-        printf "Tarifa diária: %s%%\n" (carro!!5)
-        printf "Tarifa mensal: %s%%\n" (carro!!6)
-        printf "Disponível: %s\n" (carro!!7)
-        escreveCarroElem t element index
-    else escreveCarroElem t element index
 
 clientesCadastrados:: IO()
 clientesCadastrados = do

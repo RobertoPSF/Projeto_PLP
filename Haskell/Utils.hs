@@ -15,19 +15,21 @@ split x (h:t) temp = if h /= x then do
     else temp : split x t ""
 
 
-escreveCarros:: [String] -> IO()
-escreveCarros [] = do putStrLn ""
-escreveCarros (h:t) = do
+escreveCarrosElem:: [String] -> String -> Int -> IO()
+escreveCarrosElem [] _ _ = putStrLn ""
+escreveCarrosElem (h:t) element index = do
     let carro = split '/' h ""
-    printf "\nCódigo: %s\n" (carro!!0)
-    printf "Nome: %s\n" (carro!!1)
-    printf "Ano: %s\n" (carro!!2)
-    printf "Cor: %s\n" (carro!!3)
-    printf "Preço fixo: R$ %.2f\n" (read (carro!!4):: Double)
-    printf "Tarifa diária: %s%%\n" (carro!!5)
-    printf "Tarifa mensal: %s%%\n" (carro!!6)
-    printf "Disponível: %s\n" (carro!!7)
-    escreveCarros t
+    if (carro!!index == element) then do
+        printf "\nCódigo: %s\n" (carro!!0)
+        printf "Nome: %s\n" (carro!!1)
+        printf "Ano: %s\n" (carro!!2)
+        printf "Cor: %s\n" (carro!!3)
+        printf "Preço fixo: R$ %.2f\n" (read (carro!!4):: Double)
+        printf "Tarifa diária: %s%%\n" (carro!!5)
+        printf "Tarifa mensal: %s%%\n" (carro!!6)
+        printf "Disponível: %s\n" (carro!!7)
+        escreveCarrosElem t element index
+    else escreveCarrosElem t element index
 
 
 escreveCarrosDisponiveis:: [String] -> IO()
@@ -228,7 +230,7 @@ mudarDisponibilidadeDoCarro carros idCarro disp = do
     else do
         let carro = escreveDisponivel (procuraCarro carros idCarro)
         atualizaCarroDisposicao carros carros carro 0 idCarro
-        putStr "O carro agora está indisponível\n"
+        putStr "O carro agora está disponível\n"
 
 
 salvaFuncionario:: Int -> String -> Double -> IO()
