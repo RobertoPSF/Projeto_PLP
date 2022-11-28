@@ -86,8 +86,8 @@ procuraVeiculoValor (h:t) id tempo = do
         printf "\nNome: %s\n" (carro!!1)
         printf "Ano: %s\n" (carro!!2)
         printf "Cor: %s\n" (carro!!3)
-        let diario = (read (carro!!4):: Double) * (read (carro!!5):: Double) * int2Double tempo
-        let mensal = (read (carro!!4):: Double) * (read (carro!!6):: Double) * int2Double tempo
+        let diario = (read (carro!!4):: Double) * (((read (carro!!5):: Double)/100) + int2Double tempo)
+        let mensal = (read (carro!!4):: Double) * (((read (carro!!6):: Double)/100) + int2Double tempo)
         printf "Aluguel diário: R$ %.2f\n" diario
         printf "Aluguel mensal: R$ %.2f\n" mensal
     else procuraVeiculoValor t id tempo
@@ -190,7 +190,7 @@ contratoMensal [] _ _ = 0
 contratoMensal (h:t) id tempo = do
     let carro = split '/' h ""
     if (read (carro!!0):: Int) == id then
-        (read (carro!!4):: Double) + (read (carro!!6):: Double) * int2Double tempo
+        (read (carro!!4):: Double) + (((read (carro!!6):: Double)/100) * int2Double tempo)
     else contratoMensal t id tempo
 
 
@@ -199,7 +199,7 @@ contratoDiario [] _ _ = 0
 contratoDiario (h:t) id tempo = do
     let carro = split '/' h ""
     if (read (carro!!0):: Int) == id then
-        (read (carro!!4):: Double) + (read (carro!!5):: Double) * int2Double tempo
+        (read (carro!!4):: Double) + (((read (carro!!5):: Double)/100) * int2Double tempo)
     else contratoMensal t id tempo
 
 

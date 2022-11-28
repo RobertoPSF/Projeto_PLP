@@ -1,6 +1,7 @@
-1/celta/2012/preto/300.0/5/1/nao
+1/celta/2012/preto/300.0/5/1/sim
 2/sandero/2018/prata/380.0/4/2/sim
 3/fiat uno/2017/branco/240.0/3/2/sim
-4/tiggo/2022/branco/500.0/4.0/2.0/sim
+4/tiggo/2022/branco/500.0/4.0/2.0/nao
 5/celta/2016/cinza/350.0/5/2/sim
 6/palio/2017/vinho/370.0/4/2/sim
+10/camaro/2022/vermelho/1500.0/9.0/8.0/nao
