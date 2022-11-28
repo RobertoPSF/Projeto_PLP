@@ -57,13 +57,31 @@ escreveClientes (h:t) = do
     printf "Carro alugado: %s\n" (cliente!!4)
     escreveClientes t
 
+escreveFuncionarios:: [String] -> IO()
+escreveFuncionarios [] = putStr ""
+escreveFuncionarios (h:t) = do
+    let funcionario = split '/' h ""
+    printf "\nCódigo: %s\n" (funcionario!!0)
+    printf "Nome: %s\n" (funcionario!!1)
+    printf "Salário: R$ %.2f\n" (read (funcionario!!2):: Double)
+    escreveFuncionarios t
+
+escreveContratos:: [String] -> IO()
+escreveContratos [] = putStr ""
+escreveContratos (h:t) = do
+    let contrato = split '/' h ""
+    printf "\nCódigo do cliente: %s\n" (contrato!!0)
+    printf "Código do carro: %s\n" (contrato!!1)
+    printf "Tipo de contrato: %s\n" (contrato!!2)
+    printf "Preço total: R$ %.2f\n" (read (contrato!!3):: Double)
+    escreveContratos t
 
 procuraVeiculoValor:: [String] -> Int -> Int -> IO()
 procuraVeiculoValor [] _ _ = putStr Mensagens.carroNaoEncontrado
 procuraVeiculoValor (h:t) id tempo = do
     let carro = split '/' h ""
     if (read (carro!!0):: Int) == id then do
-        printf "Nome: %s\n" (carro!!1)
+        printf "\nNome: %s\n" (carro!!1)
         printf "Ano: %s\n" (carro!!2)
         printf "Cor: %s\n" (carro!!3)
         let diario = (read (carro!!4):: Double) * (read (carro!!5):: Double) * int2Double tempo
@@ -162,6 +180,8 @@ escreveClienteCarro linha id = take 4 linha ++ [show id]
 tiraClienteCarro:: [String] -> [String]
 tiraClienteCarro linha = take 4 linha ++ ["0"]
 
+escrevePreco:: [String] -> Double -> [String]
+escrevePreco linha preco = take 4 linha ++ [show preco] ++ drop 5 linha
 
 contratoMensal:: [String] -> Int ->  Int -> Double
 contratoMensal [] _ _ = 0
@@ -210,11 +230,13 @@ mudarDisponibilidadeDoCarro carros idCarro disp = do
         atualizaCarroDisposicao carros carros carro 0 idCarro
         putStr "O carro agora está indisponível\n"
 
+
 salvaFuncionario:: Int -> String -> Double -> IO()
 salvaFuncionario id nome salario = do
     let funcionario = show id ++ "/" ++ nome ++ "/" ++ show salario ++ "\n"
     appendFile "arquivos/funcionarios.txt" (funcionario)
     putStr "Funcionario cadastrado com sucesso.\n"
+
 
 salvaCarro:: Int -> String -> String -> String -> Double -> Double -> Double -> String -> IO()
 salvaCarro id nome ano cor fixo diario mensal disp = do
@@ -241,3 +263,32 @@ removeFuncionario funcionarios indice = do
     hClose arq
     putStr ""
     putStrLn "Funcionário excluído com sucesso."
+
+
+indiceCarro:: [String] -> Int -> Int -> Int
+indiceCarro [] _ _ = 0
+indiceCarro (h:t) id indice = do
+    let carro = split '/' h ""
+    if (read (carro!!0):: Int) == id then
+        indice
+    else indiceCarro t id (indice + 1)
+
+
+escreveNovoPreco:: [String] -> Int -> Double -> IO()
+escreveNovoPreco carros id preco = do
+    let linha = procuraCarro carros id
+    if linha /= [] then do
+        let carro = escrevePreco linha preco
+        let carroS = carro!!0 ++ "/" ++ carro!!1 ++ "/" ++ carro!!2 ++ "/" ++ carro!!3 ++ "/" ++ carro!!4 ++ "/" ++ carro!!5 ++ "/" ++ carro!!6 ++ "/" ++ carro!!7
+
+        let indice = indiceCarro carros id 0
+    
+        let lista = take indice carros ++ [carroS] ++ drop (1 + indice) carros
+        let linhas = unlines lista
+
+        arq <- openFile "arquivos/carros.txt" WriteMode
+        hPutStr arq linhas
+        hFlush arq
+        hClose arq
+        putStrLn "Preço alterado com sucesso"
+    else putStr Mensagens.carroNaoEncontrado
