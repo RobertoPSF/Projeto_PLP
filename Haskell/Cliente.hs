@@ -37,7 +37,7 @@ escolherVeiculoCliente = do
     veiculosDisponiveis
     clientesCadastrados
 
-    putStr "\nInforme o código do cliente: "
+    putStr "\nInforme seu código: "
     idCliente <- readLn:: IO Int
 
     putStr "Informe o código do carro: "

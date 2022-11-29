@@ -1,6 +1,7 @@
 module Dono where
 import Utils
 import System.IO
+import Funcionario
 
 
 menuDono:: IO()
@@ -58,6 +59,7 @@ cadastrarFuncionario = do
 
 excluirFuncionario:: IO()
 excluirFuncionario = do
+    visualizarFuncionarios
     putStr "\nInforme o código do funcionário: "
     id <- readLn:: IO Int
 
@@ -140,7 +142,8 @@ visualizarContratos = do
 
 
 alterarPrecoCarro:: IO()
-alterarPrecoCarro = do 
+alterarPrecoCarro = do
+    Funcionario.veiculosDisponiveis
     putStr "\nInforme o código do carro: "
     id <- readLn:: IO Int
 
