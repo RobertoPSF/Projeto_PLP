@@ -25,6 +25,7 @@ escreveCarros (h:t) = do
     printf "Preço fixo: R$ %.2f\n" (read (carro!!4):: Double)
     printf "Tarifa diária: %s%%\n" (carro!!5)
     printf "Tarifa mensal: %s%%\n" (carro!!6)
+    printf "Disponível: %s\n" (carro!!7)
     escreveCarros t
 
 escreveCarrosElem:: [String] -> String -> Int -> IO()
