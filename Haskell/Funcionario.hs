@@ -67,15 +67,15 @@ clientesCadastrados = do
 
 valorVeiculo:: IO()
 valorVeiculo = do
-    veiculosDisponiveis
+    arq <- readFile "arquivos/carros.txt"
+    let linhas = lines arq
+    escreveCarros linhas
 
     putStr "\nInforme o código do carro:"
     id <- readLn:: IO Int
     putStr "Informe a quantidade de dias/meses:"
     tempo <- readLn:: IO Int
 
-    arq <- readFile "arquivos/carros.txt"
-    let linhas = lines arq
     Utils.procuraVeiculoValor linhas id tempo
 
 excluirCliente:: IO()

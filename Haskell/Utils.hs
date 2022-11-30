@@ -14,6 +14,18 @@ split x (h:t) temp = if h /= x then do
     split x t (temp ++ [h])
     else temp : split x t ""
 
+escreveCarros:: [String] -> IO()
+escreveCarros [] = putStrLn ""
+escreveCarros (h:t) = do
+    let carro = split '/' h ""
+    printf "\nCódigo: %s\n" (carro!!0)
+    printf "Nome: %s\n" (carro!!1)
+    printf "Ano: %s\n" (carro!!2)
+    printf "Cor: %s\n" (carro!!3)
+    printf "Preço fixo: R$ %.2f\n" (read (carro!!4):: Double)
+    printf "Tarifa diária: %s%%\n" (carro!!5)
+    printf "Tarifa mensal: %s%%\n" (carro!!6)
+    escreveCarros t
 
 escreveCarrosElem:: [String] -> String -> Int -> IO()
 escreveCarrosElem [] _ _ = putStrLn ""
