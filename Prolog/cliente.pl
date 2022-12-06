@@ -2,9 +2,32 @@
 :- include('utils.pl').
 
 menuCliente:-
-    writeln("\n----------Menu do Cliente----------\n"),
-    writeln("1 - Listar veículos disponíves\n"),
-    writeln("2 - Escolher veículo\n"),
-    writeln("3 - Pesquisar veículos\n"),
-    writeln("4 - Voltar para o menu principal\n"),
-    writeln("Opção: ").
+    writeln('\n----------Menu do Cliente----------\n'),
+    write('1 - Listar veiculos disponives\n'),
+    write('2 - Escolher veiculo\n'),
+    write('3 - Pesquisar veiculos\n'),
+    write('4 - Voltar para o menu principal\n'),
+    write('Opcao: '),
+    read(op),
+    chamadaCliente(op),
+    halt.
+
+chamadaCliente(1):-
+    veiculosDisponiveis,
+    menuCliente.
+chamadaCliente(2):-
+    escolherVeiculoCliente,
+    menuCliente.
+chamadaCliente(3):-
+    menuPesquisaVeiculos, 
+    menuCliente.
+chamadaCliente(4):- halt.
+chamadaCliente(_):-
+    opcaoInvalida, 
+    menuCliente.
+
+veiculosDisponiveis:- halt.
+
+escolherVeiculoCliente:- halt.
+
+menuPesquisaVeiculos:- halt.
