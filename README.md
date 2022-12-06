@@ -14,6 +14,5 @@ Projeto em Haskell e Prolog para disciplina de Paradigmas de Linguagem de Progra
 1. Clone o repositório
 2. Abra a pasta Prolog
 3. Escreva "swipl -f .\menu.pl"
-4. Digite "main."
-5. Comece a utilizar
-6. Todas as entradas devem finalizar com "."
+4. Comece a utilizar
+5. Todas as entradas devem finalizar com "."
