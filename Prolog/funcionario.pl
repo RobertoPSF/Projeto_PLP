@@ -11,9 +11,8 @@ menuFuncionario:-
     write('6 - Calcular valor do veiculo\n'),
     write('7 - Voltar para o menu principal\n'),
     write('Opcao: '),
-    read(op),
-    chamadaPrincipal(op),
-    halt.
+    read(Opcao),
+    chamadaPrincipal(Opcao).
 
 chamadaFuncionario(1):-
     veiculosDisponiveis,
@@ -33,18 +32,18 @@ chamadaFuncionario(5):-
 chamadaFuncionario(6):-
     valorVeiculo,
     menuFuncionario.
-chamadaFuncionario(7):- halt.
+chamadaFuncionario(7):- write('').
 chamadaFuncionario(_):- opcaoInvalida,
     menuFuncionario.
 
-veiculosDisponiveis:- halt.
+veiculosDisponiveis:- write('').
 
-escolherVeiculo:- halt.
+escolherVeiculo:- write('').
 
-mudarDisponibilidadeCarro:- halt.
+mudarDisponibilidadeCarro:- write('').
 
-clientesCadastrados:- halt.
+clientesCadastrados:- write('').
 
-excluirCliente:- halt.
+excluirCliente:- write('').
 
-valorVeiculo:- halt.
+valorVeiculo:- write('').

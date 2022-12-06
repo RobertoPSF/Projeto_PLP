@@ -8,9 +8,8 @@ menuCliente:-
     write('3 - Pesquisar veiculos\n'),
     write('4 - Voltar para o menu principal\n'),
     write('Opcao: '),
-    read(op),
-    chamadaCliente(op),
-    halt.
+    read(Opcao),
+    chamadaCliente(Opcao).
 
 chamadaCliente(1):-
     veiculosDisponiveis,
@@ -21,13 +20,13 @@ chamadaCliente(2):-
 chamadaCliente(3):-
     menuPesquisaVeiculos, 
     menuCliente.
-chamadaCliente(4):- halt.
+chamadaCliente(4):- write('').
 chamadaCliente(_):-
     opcaoInvalida, 
     menuCliente.
 
-veiculosDisponiveis:- halt.
+veiculosDisponiveis:- write('').
 
-escolherVeiculoCliente:- halt.
+escolherVeiculoCliente:- write('').
 
-menuPesquisaVeiculos:- halt.
+menuPesquisaVeiculos:- write('').

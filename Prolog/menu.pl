@@ -1,3 +1,4 @@
+:- (initialization main).
 :- include('cliente.pl').
 :- include('dono.pl').
 :- include('funcionario.pl').
@@ -11,9 +12,8 @@ main:-
     write('3 - Menu do funcionario\n'),
     write('4 - Sair\n'),
     write('Opcao: '),
-    read(op),
-    chamadaPrincipal(op),
-    halt.
+    read(Opcao),
+    chamadaPrincipal(Opcao).
 
 chamadaPrincipal(1):- 
     menuCliente,
@@ -24,7 +24,7 @@ chamadaPrincipal(2):-
 chamadaPrincipal(3):- 
     menuFuncionario,
     main.
-chamadaPrincipal(4):- halt.
+chamadaPrincipal(4):- write('Ate a proxima!'), halt.
 chamadaPrincipal(_):- 
     opcaoInvalida,
     main.
