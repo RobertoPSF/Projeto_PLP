@@ -1,13 +1,13 @@
 :-style_check(-discontiguous).
 
 opcaoInvalida:-
-    write('Opcao invalida, digite novamente\n').
+    write('\nOpcao invalida, digite novamente\n').
 
 clienteNaoEncontrado:-
-    write('Cliente nao existe\n').
+    write('\nCliente nao existe\n').
 
 carroNaoEncontrado:-
-    write('Carro nao encontrado\n').
+    write('\nCarro nao encontrado\n').
 
 funcionarioNaoEncontrado:-
-    write('Funcionario nao encontrado\n').
+    write('\nFuncionario nao encontrado\n').

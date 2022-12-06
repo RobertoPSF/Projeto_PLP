@@ -3,7 +3,7 @@
 
 menuFuncionario:-
     writeln('\n---------Menu do Funcionario----------\n'),
-    write('1 - Veículos disponiveis\n'),
+    write('1 - Veiculos disponiveis\n'),
     write('2 - Escolher veiculo para um cliente\n'),
     write('3 - Mudar disponibilidade de um carro\n'),
     write('4 - Exibir clientes cadastrados\n'),
@@ -12,7 +12,7 @@ menuFuncionario:-
     write('7 - Voltar para o menu principal\n'),
     write('Opcao: '),
     read(Opcao),
-    chamadaPrincipal(Opcao).
+    chamadaFuncionario(Opcao).
 
 chamadaFuncionario(1):-
     veiculosDisponiveis,
@@ -36,14 +36,25 @@ chamadaFuncionario(7):- write('').
 chamadaFuncionario(_):- opcaoInvalida,
     menuFuncionario.
 
-veiculosDisponiveis:- write('').
+veiculosDisponiveis:- 
+    writeln('\nVeiculos disponiveis:').
 
-escolherVeiculo:- write('').
+escolherVeiculo:- 
+    write('\nInforme o código do cliente: '),
+    write('\nInforme o código do carro: '),
+    write('\nTipo de contrato (diario/mensal): '),
+    write('\nQuantidade de dias/meses: ').
 
-mudarDisponibilidadeCarro:- write('').
+mudarDisponibilidadeCarro:- 
+    write('\nInforme o codigo do carro: '),
+    write('\nO carro esta disponivel ou indisponivel (d/i): ').
 
-clientesCadastrados:- write('').
+clientesCadastrados:-
+    writeln('\nClientes cadastrados:').
 
-excluirCliente:- write('').
+excluirCliente:- 
+    write('\nInforme o codigo do cliente: ').
 
-valorVeiculo:- write('').
+valorVeiculo:- 
+    write('\nInforme o codigo do carro: '),
+    write('\nInforme a quantidade de dias/meses: ').

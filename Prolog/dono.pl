@@ -37,14 +37,51 @@ chamadaDono(_):-
     opcaoInvalida,
     menuDono.
 
-cadastrarFuncionario:- write('').
+cadastrarFuncionario:- 
+    write('\nInforme o codigo do funcionario: '),
+    write('\nInforme o nome: '),
+    write('\nSalario: R$"').
 
-cadastrarCarro:- write('').
+cadastrarCarro:- 
+    write('\nInforme o codigo do carro: '),
+    write('\nNome: '),
+    write('\nAno: '),
+    write('\nCor: '),
+    write('\nPreco fixo: R$'),
+    write('\nTarifa diaria (porcentagem): '),
+    write('\nTarifa mensal (porcentagem): ').   
 
-excluirFuncionario:- write('').
+excluirFuncionario:- 
+    write('\nInforme o codigo do funcionario: ').
 
-menuFinancas:- write('').
+menuFinancas:- 
+    writeln('\n1 - Visualizar contratos ativos'),
+    writeln('2 - Alterar preço de um carro'),
+    writeln('3 - Voltar para o menu anterior'),
+    write('Opcao: ')
+    read(Op),
+    chamadaFinancas(Op).
+    
+chamadaFinancas(1):-
+    visualizarContratos,
+    menuFinancas.
+chamadaFinancas(2):-
+    alterarPrecoCarro,
+    menuFinancas.
+chamadaFinancas(3):- write('').
+chamadaFinancas(_):- 
+    opcaoInvalida,
+    menuFinancas.
 
-visualizarFuncionarios:- write('').
+visualizarContratos:-
+    writeln('\nContratos ativos: ').
 
-visualizarClientes:- write('').
+alterarPrecoCarro:-
+    write('\nInforme o codigo do carro: '),    
+    write('\nInforme o novo preco: R$').        
+
+visualizarFuncionarios:- 
+    write('\nFuncionarios ativos: ').
+
+visualizarClientes:- 
+    write('\nClientes ativos: ').

@@ -25,8 +25,32 @@ chamadaCliente(_):-
     opcaoInvalida, 
     menuCliente.
 
-veiculosDisponiveis:- write('').
+veiculosDisponiveis:- 
+    writeln('\nVeiculos disponiveis:').
 
-escolherVeiculoCliente:- write('').
+escolherVeiculoCliente:- 
+    write('\nInforme seu codigo: '),
+    write('\nInforme o codigo do carro: '),
+    writeln('Tipo de contrato:'),
+    writeln('1 - Diario'),
+    writeln('2 - Mensal'),
+    write('Quantidade de dias/meses: ').
 
-menuPesquisaVeiculos:- write('').
+menuPesquisaVeiculos:- 
+    writeln('\nTipo de pesquisa:'),
+    writeln('1 - Modelo'),
+    writeln('2 - Ano'),
+    writeln('3 - Cor'),
+    write('Opcao: '),
+    read(Op),
+    opcaoPesquisa(Op).
+
+opcaoPesquisa(1):-
+    writeln('\nModelo: ').
+opcaoPesquisa(2):-
+    writeln('\nAno: ').
+opcaoPesquisa(3):-
+    writeln('\nCor: ').
+opcaoPesquisa(_):-
+    opcaoInvalida,
+    menuPesquisaVeiculos.
