@@ -18,7 +18,7 @@ chamadaFuncionario(1):-
     veiculosDisponiveis,
     menuFuncionario.
 chamadaFuncionario(2):-
-    escolherVeiculo,
+    escolherVeiculoParaCliente,
     menuFuncionario.
 chamadaFuncionario(3):-
     mudarDisponibilidadeCarro,
@@ -36,25 +36,54 @@ chamadaFuncionario(7):- write('').
 chamadaFuncionario(_):- opcaoInvalida,
     menuFuncionario.
 
-veiculosDisponiveis:- 
-    writeln('\nVeiculos disponiveis:').
+veiculosDisponiveis:-
+    writeln('\nVeiculos disponiveis:'), 
+    exibirCarrosDisp('arquivos/carros.csv').
 
-escolherVeiculo:- 
-    write('\nInforme o código do cliente: '),
-    write('\nInforme o código do carro: '),
-    write('\nTipo de contrato (diario/mensal): '),
-    write('\nQuantidade de dias/meses: ').
+escolherVeiculoParaCliente:-
+    clientesCadastrados,
+    write('\nInforme o codigo do cliente: '),
+    read(IdCliente),
+    lerCSV('arquivos/clientes.csv', Clientes),
 
-mudarDisponibilidadeCarro:- 
+    veiculosDisponiveis,
     write('\nInforme o codigo do carro: '),
-    write('\nO carro esta disponivel ou indisponivel (d/i): ').
+    read(IdCarro),
+    lerCSV('arquivos/carros.csv', Carros),
+
+    write('Tipo de contrato (diario/mensal): '),
+    read(Tipo),
+    write('Quantidade de dias/meses: '),
+    read(Tempo),
+
+    escolherCarroCliente(Clientes, Carros, IdCliente, IdCarro, Tipo, Tempo),
+    writeln('Carro alugado com sucesso!').
+
+mudarDisponibilidadeCarro:-
+    exibirCarros('arquivos/carros.csv'),
+    write('\nInforme o codigo do carro: '),
+    read(IdCarro),
+    write('O carro esta disponivel ou indisponivel (d/i): '),
+    read(Disp),
+    escreveDisponibilidadeCarro('arquivos/carros.csv', IdCarro, Disp),
+    writeln('Disponibilidade alterada.').
 
 clientesCadastrados:-
-    writeln('\nClientes cadastrados:').
+    writeln('\nClientes cadastrados:'),
+    exibirClientesCadastrados('arquivos/clientes.csv').
 
-excluirCliente:- 
-    write('\nInforme o codigo do cliente: ').
+excluirCliente:-
+    exibirClientesCadastrados('arquivos/clientes.csv'),
+    write('\nInforme o codigo do cliente: '),
+    read(Id),
+    removerCliente('arquivos/clientes.csv', Id),
+    writeln('Cliente excluido com sucesso').
 
-valorVeiculo:- 
+valorVeiculo:-
+    writeln('\nCarros disponiveis:'),
+    exibirCarros('arquivos/carros.csv'),
     write('\nInforme o codigo do carro: '),
-    write('\nInforme a quantidade de dias/meses: ').
+    read(Id),
+    write('Informe a quantidade de dias/meses: '),
+    read(Tempo),
+    calculaValorVeiculo('arquivos/carros.csv', Id, Tempo).

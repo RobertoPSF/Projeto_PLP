@@ -26,7 +26,8 @@ chamadaCliente(_):-
     menuCliente.
 
 veiculosDisponiveis:- 
-    writeln('\nVeiculos disponiveis:').
+    writeln('\nVeiculos disponiveis:'),
+    exibirCarrosDisp('arquivos/carros.csv').
 
 escolherVeiculoCliente:- 
     write('\nInforme seu codigo: '),

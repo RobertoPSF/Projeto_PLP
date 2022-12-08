@@ -39,26 +39,44 @@ chamadaDono(_):-
 
 cadastrarFuncionario:- 
     write('\nInforme o codigo do funcionario: '),
-    write('\nInforme o nome: '),
-    write('\nSalario: R$"').
+    read(Id),
+    write('Informe o nome: '),
+    read(Nome),
+    write('Salario: R$"'),
+    read(Salario),
+    salvarFuncionario('arquivos/funcionarios.csv', Id, Nome, Salario),
+    writeln('Funcionario cadastrado com sucesso.').
 
 cadastrarCarro:- 
     write('\nInforme o codigo do carro: '),
-    write('\nNome: '),
-    write('\nAno: '),
-    write('\nCor: '),
-    write('\nPreco fixo: R$'),
-    write('\nTarifa diaria (porcentagem): '),
-    write('\nTarifa mensal (porcentagem): ').   
+    read(Id),
+    write('Nome: '),
+    read(Nome),
+    write('Ano: '),
+    read(Ano),
+    write('Cor: '),
+    read(Cor),
+    write('Preco fixo: R$'),
+    read(Preco),
+    write('Tarifa diaria (porcentagem): '),
+    read(Diaria),
+    write('Tarifa mensal (porcentagem): '),
+    read(Mensal),
+    salvarCarro('arquivos/carros.csv', Id, Nome, Ano, Cor, Preco, Diaria, Mensal, sim),
+    writeln('Carro cadastrado com sucesso.').
 
-excluirFuncionario:- 
-    write('\nInforme o codigo do funcionario: ').
+excluirFuncionario:-
+    exibirFuncionarios('arquivos/funcionarios.csv'),
+    write('\nInforme o codigo do funcionario: '),
+    read(Id),
+    removerFuncionario('arquivos/funcionarios.csv', Id),
+    writeln('\nFuncionario removido com sucesso.').
 
 menuFinancas:- 
     writeln('\n1 - Visualizar contratos ativos'),
-    writeln('2 - Alterar preço de um carro'),
+    writeln('2 - Alterar preco de um carro'),
     writeln('3 - Voltar para o menu anterior'),
-    write('Opcao: ')
+    write('Opcao: '),
     read(Op),
     chamadaFinancas(Op).
     
@@ -74,14 +92,22 @@ chamadaFinancas(_):-
     menuFinancas.
 
 visualizarContratos:-
+    exibirContratos('arquivos/contratos.csv'),
     writeln('\nContratos ativos: ').
 
 alterarPrecoCarro:-
-    write('\nInforme o codigo do carro: '),    
-    write('\nInforme o novo preco: R$').        
+    exibirCarros('arquivos/carros.csv'),
+    write('\nInforme o codigo do carro: '),
+    read(IdCarro),    
+    write('Informe o novo preco: R$'),
+    read(Preco),
+    mudaPrecoCarro('arquivos/carros.csv', IdCarro, Preco),
+    writeln('Preco alterado com sucesso.').       
 
 visualizarFuncionarios:- 
+    exibirFuncionarios('arquivos/funcionarios.csv'),
     write('\nFuncionarios ativos: ').
 
-visualizarClientes:- 
+visualizarClientes:-
+    exibirClientesCadastrados('arquivos/clientes.csv'),
     write('\nClientes ativos: ').
