@@ -45,8 +45,8 @@ calculaValorVeiculo(FilePath, Id, Tempo):-
     exibirValorVeiculo(File, Id, Tempo).
 
 
-exibirCarrosAuxDisp([]).
-exibirCarrosAuxDisp([row(ID, Nome, Ano, Cor, Preco, Diaria, Mensal, sim)|T]):-
+exibirCarrosAuxDisp([], _).
+exibirCarrosAuxDisp([row(ID, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp)|T], Disp):-
     write('Codigo: '), writeln(ID),
     write('Nome: '), writeln(Nome),
     write('Ano: '), writeln(Ano),
@@ -54,12 +54,13 @@ exibirCarrosAuxDisp([row(ID, Nome, Ano, Cor, Preco, Diaria, Mensal, sim)|T]):-
     write('Valor fixo: R$'), format('~2f', Preco), nl,
     write('Tarifa diaria: '), write(Diaria), writeln('%'),
     write('Tarifa mensal: '), write(Mensal), writeln('%'),
-    nl, exibirCarrosAuxDisp(T).
+    nl, exibirCarrosAuxDisp(T, Disp).
+exibirCarrosAuxDisp([_|T], Disp):- exibirCarrosAuxDisp(T, Disp).
 
 
 exibirCarrosDisp(FilePath):-
     lerCSV(FilePath, File),
-    exibirCarrosAuxDisp(File).
+    exibirCarrosAuxDisp(File, sim).
 
 
 exibirClientesCadastradosAux([]).
@@ -160,49 +161,6 @@ removerFuncionario(FilePath, Id):-
    removerFuncionarioCSV(File, Id, Saida),
    csv_write_file(FilePath, Saida).
 
-
-procuraCarro([], _, _).
-procuraCarro(([row(ID, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp)|_], ID, Carro)):-
-    Carro = row(ID, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp).
-procuraCarro(([H|T], ID, [H|Out])):- procuraCarro(T, ID, Out).
-
-
-procuraCliente([], _, _).
-procuraCliente(([row(ID, Nome, CPF, Idade, CarroAlugado)|_], ID, Cliente)):-
-    Cliente = row(ID, Nome, CPF, Idade, CarroAlugado).
-procuraCliente(([_|T], ID, Cliente)):- procuraCliente(T, ID, Cliente).
-
-
-calculaTotal(row(_, _, _, _, Preco, Diaria, _, _), diario, Tempo, Total):-
-    calculaDiaria(Preco, Diaria, Tempo, T),
-    Total = T.
-
-
-calculaTotal(row(_, _, _, _, Preco, _, Mensal, _), mensal, Tempo, Total):-
-    calculaDiaria(Preco, Mensal, Tempo, T),
-    Total = T.
-
-
-salvarNosCarros([ID, Nome, Ano, Cor, Preco, Diaria, Mensal, _]):-
-    salvarCarro('arquivos/carros.csv', ID, Nome, Ano, Cor, Preco, Diaria, Mensal, nao).
-
-
-salvarNosClientes([ID, Nome, CPF, Idade, _], IdCarro):-
-    salvarCliente('arquivos/clientes.csv', ID, Nome, CPF, Idade, IdCarro).
-
-
-escolherCarroCliente(Clientes, Carros, IdCliente, IdCarro, Tipo, Tempo):-
-    writeln('aqui'),
-    procuraCarro(Carros, IdCarro, Carro),
-    writeln('aqui2'),
-    procuraCliente(Clientes, IdCliente, Cliente),
-    writeln('aqui3'),
-    calculaTotal(Carro, Tipo, Tempo, Total),
-    salvarContrato('arquivos/contratos.csv', IdCliente, IdCarro, Tipo, Total),
-    escreveDisponibilidadeCarro('arquivos/carros.csv', IdCarro, i),
-    salvarNosClientes(Cliente, IdCarro).
-
-
 escreveDisponibilidadeAux([], _, _, []).
 escreveDisponibilidadeAux([row(Id, Nome, Ano, Cor, Preco, Diaria, Mensal, _)|T], Id, Disp, [row(Id, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp)|T]).
 escreveDisponibilidadeAux([H|T], Id, Disp, [H|Out]) :- escreveDisponibilidadeAux(T, Id, Disp, Out).
@@ -216,6 +174,46 @@ escreveDisponibilidadeCarro(FilePath, Id, d):-
    lerCSV(FilePath, File),
    escreveDisponibilidadeAux(File, Id, sim, Saida),
    csv_write_file(FilePath, Saida).
+
+
+escreveCarroClienteAux([], _, _, []).
+escreveCarroClienteAux([row(Id, Nome, CPF, Idade, _)|T], Id, IdCarro, [row(Id, Nome, CPF, Idade, IdCarro)|T]).
+escreveCarroClienteAux([H|T], Id, IdCarro, [H|Out]) :- escreveCarroClienteAux(T, Id, IdCarro, Out).
+
+
+escreveCarroCliente(FilePath, Id, IdCarro):-
+   lerCSV(FilePath, File),
+   escreveCarroClienteAux(File, Id, IdCarro, Saida),
+   csv_write_file(FilePath, Saida).
+
+procura2([], _, []).
+procura2([row(Id, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp)|_], Id, row(Id, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp)).
+procura2([H|T], Id, [H|Out]) :- procura2(T, Id, Out).
+
+procura(_, [], []).
+procura(ID, [H|T], C):- (member(ID, H) -> C = H; procura(ID, T, C)).
+
+
+calculaTotal([row(ID, _, _, _, Preco, Diaria, Mensal, _)|_], ID, Tipo, Tempo, Total):-
+    (member(d, Tipo) -> calculaDiaria(Preco, Diaria, Tempo, T), Total = T; 
+    calculaMensal(Preco, Mensal, Tempo, T), Total = T).
+calculaTotal([_|T], IdCarro, Tipo, Tempo, Total):- calculaTotal(T, IdCarro, Tipo, Tempo, Total).
+
+
+salvarNosCarros([ID, Nome, Ano, Cor, Preco, Diaria, Mensal, _]):-
+    salvarCarro('arquivos/carros.csv', ID, Nome, Ano, Cor, Preco, Diaria, Mensal, nao).
+
+
+salvarNosClientes([ID, Nome, CPF, Idade, _], IdCarro):-
+    salvarCliente('arquivos/clientes.csv', ID, Nome, CPF, Idade, IdCarro).
+
+
+escolherCarroCliente(IdCliente, IdCarro, Tipo, Tempo):-
+    lerCSV('arquivos/carros.csv', Carros),
+    calculaTotal(Carros, IdCarro, Tipo, Tempo, Total),
+    salvarContrato('arquivos/contratos.csv', IdCliente, IdCarro, Tipo, Total),
+    escreveDisponibilidadeCarro('arquivos/carros.csv', IdCarro, i),
+    escreveCarroCliente('arquivos/clientes.csv', IdCliente, IdCarro).
 
 
 mudaPrecoCarroAux([], _, _, []).

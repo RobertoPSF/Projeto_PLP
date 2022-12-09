@@ -44,19 +44,17 @@ escolherVeiculoParaCliente:-
     clientesCadastrados,
     write('\nInforme o codigo do cliente: '),
     read(IdCliente),
-    lerCSV('arquivos/clientes.csv', Clientes),
 
     veiculosDisponiveis,
     write('\nInforme o codigo do carro: '),
     read(IdCarro),
-    lerCSV('arquivos/carros.csv', Carros),
 
     write('Tipo de contrato (diario/mensal): '),
     read(Tipo),
     write('Quantidade de dias/meses: '),
     read(Tempo),
 
-    escolherCarroCliente(Clientes, Carros, IdCliente, IdCarro, Tipo, Tempo),
+    escolherCarroCliente(IdCliente, IdCarro, Tipo, Tempo),
     writeln('Carro alugado com sucesso!').
 
 mudarDisponibilidadeCarro:-
