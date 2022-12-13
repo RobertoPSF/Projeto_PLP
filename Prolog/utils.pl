@@ -186,13 +186,6 @@ escreveCarroCliente(FilePath, Id, IdCarro):-
    escreveCarroClienteAux(File, Id, IdCarro, Saida),
    csv_write_file(FilePath, Saida).
 
-procura2([], _, []).
-procura2([row(Id, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp)|_], Id, row(Id, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp)).
-procura2([H|T], Id, [H|Out]) :- procura2(T, Id, Out).
-
-procura(_, [], []).
-procura(ID, [H|T], C):- (member(ID, H) -> C = H; procura(ID, T, C)).
-
 
 calculaTotal([row(ID, _, _, _, Preco, Diaria, Mensal, _)|_], ID, Tipo, Tempo, Total):-
     (member(d, Tipo) -> calculaDiaria(Preco, Diaria, Tempo, T), Total = T; 
