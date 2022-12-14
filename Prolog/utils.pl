@@ -4,6 +4,16 @@
 lerCSV(FilePath, File):- csv_read_file(FilePath, File).
 
 
+procuraCliente(_, [], false).
+procuraCliente(ID, [row(ID, _, _, _, _)|_], true).
+procuraCliente(ID, [_|T], Existe):- procuraCliente(ID, T, Existe).
+
+
+existeCliente(ID, FilePath, R):-
+    lerCSV(FilePath, File),
+    procuraCliente(ID, File, R).
+
+
 exibirCarrosAux([]).
 exibirCarrosAux([row(ID, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp)|T]):-
     write('Codigo: '), writeln(ID),
