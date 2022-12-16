@@ -17,6 +17,6 @@ Projeto em Haskell e Prolog para disciplina de Paradigmas de Linguagem de Progra
 4. Comece a utilizar
 5. Todas as entradas devem finalizar com "."
 6. Para evitar erros, todos os nomes devem ser únicos, da seguinte maneira:
-  -> "Fulano" ✅
-  -> "Fulano de Tal" ❌
+  -"Fulano" ✅
+  -"Fulano de Tal" ❌
 
