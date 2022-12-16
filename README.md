@@ -19,3 +19,4 @@ Projeto em Haskell e Prolog para disciplina de Paradigmas de Linguagem de Progra
 6. Para evitar erros, todos os nomes devem ser únicos, da seguinte maneira:
   -> "Fulano" ✅
   -> "Fulano de Tal" ❌
+
