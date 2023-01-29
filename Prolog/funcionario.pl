@@ -44,8 +44,8 @@ escolherVeiculoParaCliente:-
     clientesCadastrados,
     write('\nInforme o codigo do cliente: '),
     read(IdCliente),
-
-    veiculosDisponiveis,
+    existeCliente(IdCliente, 'arquivos/clientes.csv', R),
+    (R == true -> veiculosDisponiveis,
     write('\nInforme o codigo do carro: '),
     read(IdCarro),
 
@@ -55,7 +55,8 @@ escolherVeiculoParaCliente:-
     read(Tempo),
 
     escolherCarroCliente(IdCliente, IdCarro, Tipo, Tempo),
-    writeln('Carro alugado com sucesso!').
+    writeln('Carro alugado com sucesso!');
+    writeln('Cliente nao existe!')).
 
 mudarDisponibilidadeCarro:-
     exibirCarros('arquivos/carros.csv'),

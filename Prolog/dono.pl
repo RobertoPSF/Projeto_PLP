@@ -3,39 +3,55 @@
 
 menuDono:-
     writeln('\n----------Menu do Dono----------\n'),
-    write('1 - Cadastrar funcionario\n'),
-    write('2 - Cadastrar carro\n'),
-    write('3 - Excluir funcionario\n'),
-    write('4 - Gerencia de financas\n'),
-    write('5 - Visualizar funcionarios ativos\n'),
-    write('6 - Visualizar clientes ativos\n'),
-    write('7 - Voltar para o menu principal\n'),
+    write('1 - Cadastrar cliente\n'),
+    write('2 - Cadastrar funcionario\n'),
+    write('3 - Cadastrar carro\n'),
+    write('4 - Excluir funcionario\n'),
+    write('5 - Gerencia de financas\n'),
+    write('6 - Visualizar funcionarios ativos\n'),
+    write('7 - Visualizar clientes ativos\n'),
+    write('8 - Voltar para o menu principal\n'),
     write('Opcao: '),
     read(Opcao),
     chamadaDono(Opcao).
 
 chamadaDono(1):-
-    cadastrarFuncionario,
+    cadastrarCliente,
     menuDono.
 chamadaDono(2):-
-    cadastrarCarro,
+    cadastrarFuncionario,
     menuDono.
 chamadaDono(3):-
-    excluirFuncionario,
+    cadastrarCarro,
     menuDono.
 chamadaDono(4):-
-    menuFinancas,
+    excluirFuncionario,
     menuDono.
 chamadaDono(5):-
-    visualizarFuncionarios,
+    menuFinancas,
     menuDono.
 chamadaDono(6):-
+    visualizarFuncionarios,
+    menuDono.
+chamadaDono(7):-
     visualizarClientes,
     menuDono.
-chamadaDono(7):- write('').
+chamadaDono(8):- write('').
 chamadaDono(_):-
     opcaoInvalida,
     menuDono.
+
+cadastrarCliente:-
+    write('\nInforme o codigo do cliente: '),
+    read(IdCliente),
+    write('Informe o nome: '),
+    read(Nome),
+    write('CPF: '),
+    read(CPF),
+    write('Idade: '),
+    read(Idade),
+    salvarCliente('arquivos/clientes.csv', IdCliente, Nome, CPF, Idade, 0),
+    writeln('Cliente cadastrado com sucesso.').
 
 cadastrarFuncionario:- 
     write('\nInforme o codigo do funcionario: '),
@@ -104,10 +120,10 @@ alterarPrecoCarro:-
     mudaPrecoCarro('arquivos/carros.csv', IdCarro, Preco),
     writeln('Preco alterado com sucesso.').       
 
-visualizarFuncionarios:- 
-    exibirFuncionarios('arquivos/funcionarios.csv'),
-    write('\nFuncionarios ativos: ').
+visualizarFuncionarios:-
+    writeln('\nFuncionarios ativos: '),
+    exibirFuncionarios('arquivos/funcionarios.csv').
 
 visualizarClientes:-
-    exibirClientesCadastrados('arquivos/clientes.csv'),
-    write('\nClientes ativos: ').
+    writeln('\nClientes ativos: '),
+    exibirClientesCadastrados('arquivos/clientes.csv').

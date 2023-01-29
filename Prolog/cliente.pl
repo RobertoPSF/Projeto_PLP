@@ -29,13 +29,25 @@ veiculosDisponiveis:-
     writeln('\nVeiculos disponiveis:'),
     exibirCarrosDisp('arquivos/carros.csv').
 
-escolherVeiculoCliente:- 
+escolherVeiculoCliente:-
+    clientesCadastrados,
     write('\nInforme seu codigo: '),
+    read(IdCliente),
+    existeCliente(IdCliente, 'arquivos/clientes.csv', R),
+    (R == true -> veiculosDisponiveis,
     write('\nInforme o codigo do carro: '),
+    read(IdCarro),
+
     writeln('Tipo de contrato:'),
     writeln('1 - Diario'),
     writeln('2 - Mensal'),
-    write('Quantidade de dias/meses: ').
+    read(Tipo),
+    write('Quantidade de dias/meses: '),
+    read(Tempo),
+    
+    (Tipo =:= 1 -> escolherCarroCliente(IdCliente, IdCarro, 'diario', Tempo); escolherCarroCliente(IdCliente, IdCarro, 'mensal', Tempo)),
+    writeln('Carro alugado com sucesso!');
+    writeln('Cliente nao existe!')).
 
 menuPesquisaVeiculos:- 
     writeln('\nTipo de pesquisa:'),
@@ -47,11 +59,18 @@ menuPesquisaVeiculos:-
     opcaoPesquisa(Op).
 
 opcaoPesquisa(1):-
-    writeln('\nModelo: ').
+    writeln('\nModelo: '),
+    read(Modelo),
+    pesquisaCarroModelo(Modelo, 'arquivos/carros.csv').
 opcaoPesquisa(2):-
-    writeln('\nAno: ').
+    writeln('\nAno: '),
+    read(Ano),
+    pesquisaCarroAno(Ano, 'arquivos/carros.csv').
 opcaoPesquisa(3):-
-    writeln('\nCor: ').
+    writeln('\nCor: '),
+    read(Cor),
+    pesquisaCarroCor(Cor, 'arquivos/carros.csv').
 opcaoPesquisa(_):-
     opcaoInvalida,
     menuPesquisaVeiculos.
+

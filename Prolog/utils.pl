@@ -14,6 +14,53 @@ existeCliente(ID, FilePath, R):-
     procuraCliente(ID, File, R).
 
 
+procuraCarro(_, [], false).
+procuraCarro(ID, [row(ID, _, _, _, _, _, _, _)|_], true).
+procuraCarro(ID, [_|T], Existe):- procuraCarro(ID, T, Existe).
+
+existeCarro(ID, FilePath, R):-
+    lerCSV(FilePath, File),
+    procuraCarro(ID, File, R).
+
+
+pesquisaCarroModelo(Nome, FilePath):-
+    lerCSV(FilePath, File),
+    exibirCarrosModelo(Nome, File).
+
+exibirCarrosModelo(_, []).
+exibirCarrosModelo(Nome, [row(ID, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp)|T]):-
+    exibeCarro([row(ID, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp)|_]), exibirCarrosModelo(Nome, T).
+exibirCarrosModelo(Nome, [_|T]):- exibirCarrosModelo(Nome, T).
+
+pesquisaCarroAno(Ano, FilePath):-
+    lerCSV(FilePath, File),
+    exibirCarrosAno(Ano, File).
+
+exibirCarrosAno(_, []).
+exibirCarrosAno(Ano, [row(ID, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp)|T]):-
+    exibeCarro([row(ID, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp)|_]), exibirCarrosAno(Ano, T).
+exibirCarrosAno(Ano, [_|T]):- exibirCarrosAno(Ano, T).
+
+pesquisaCarroCor(Cor, FilePath):-
+    lerCSV(FilePath, File),
+    exibirCarrosCor(Cor, File).
+
+exibirCarrosCor(_, []).
+exibirCarrosCor(Cor, [row(ID, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp)|T]):-
+    exibeCarro([row(ID, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp)|_]), exibirCarrosCor(Cor, T).
+exibirCarrosCor(Cor, [_|T]):- exibirCarrosCor(Cor, T).
+
+exibeCarro([row(ID, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp)|_]):-
+    write('\nCodigo: '), writeln(ID),
+    write('Nome: '), writeln(Nome),
+    write('Ano: '), writeln(Ano),
+    write('Cor: '), writeln(Cor),
+    write('Valor fixo: R$'), format('~2f', Preco), nl,
+    write('Tarifa diaria: '), write(Diaria), writeln('%'),
+    write('Tarifa mensal: '), write(Mensal), writeln('%'),
+    write('Disponivel: '), writeln(Disp).
+
+
 exibirCarrosAux([]).
 exibirCarrosAux([row(ID, Nome, Ano, Cor, Preco, Diaria, Mensal, Disp)|T]):-
     write('Codigo: '), writeln(ID),
