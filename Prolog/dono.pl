@@ -58,7 +58,7 @@ cadastrarFuncionario:-
     read(Id),
     write('Informe o nome: '),
     read(Nome),
-    write('Salario: R$"'),
+    write('Salario: R$ '),
     read(Salario),
     salvarFuncionario('arquivos/funcionarios.csv', Id, Nome, Salario),
     writeln('Funcionario cadastrado com sucesso.').
