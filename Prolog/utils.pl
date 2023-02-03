@@ -78,10 +78,10 @@ exibirCarros(FilePath):-
     exibirCarrosAux(File).
 
 calculaDiaria(Preco, Diaria, Tempo, D):-
-    D is (Preco * (Diaria/100)) * Tempo.
+    D is ((Preco * (Diaria/100)) * Tempo) + Preco.
 
 calculaMensal(Preco, Mensal, Tempo, M):-
-    M is (Preco * (Mensal/100)) * Tempo.
+    M is ((Preco * (Mensal/100)) * Tempo) + Preco.
 
 
 exibirValorVeiculo([], _, _).

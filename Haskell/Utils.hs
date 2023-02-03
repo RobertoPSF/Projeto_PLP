@@ -99,8 +99,8 @@ procuraVeiculoValor (h:t) id tempo = do
         printf "\nNome: %s\n" (carro!!1)
         printf "Ano: %s\n" (carro!!2)
         printf "Cor: %s\n" (carro!!3)
-        let diario = ((read (carro!!4):: Double) * ((read (carro!!5):: Double)/100)) * int2Double tempo
-        let mensal = ((read (carro!!4):: Double) * ((read (carro!!6):: Double)/100)) * int2Double tempo
+        let diario = (((read (carro!!4):: Double) * ((read (carro!!5):: Double)/100)) * int2Double tempo) + (read (carro!!4):: Double)
+        let mensal = (((read (carro!!4):: Double) * ((read (carro!!6):: Double)/100)) * int2Double tempo) + (read (carro!!4):: Double)
         printf "Aluguel diário: R$ %.2f\n" diario
         printf "Aluguel mensal: R$ %.2f\n" mensal
     else procuraVeiculoValor t id tempo
