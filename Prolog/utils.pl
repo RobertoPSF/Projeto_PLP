@@ -81,7 +81,7 @@ calculaDiaria(Preco, Diaria, Tempo, D):-
     D is ((Preco * (Diaria/100)) * Tempo) + Preco.
 
 calculaMensal(Preco, Mensal, Tempo, M):-
-    M is ((Preco * (Mensal/100)) * Tempo) + Preco.
+    M is ((Preco * (Mensal/100)) * Tempo) + Preco * Tempo.
 
 
 exibirValorVeiculo([], _, _).
